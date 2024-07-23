@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react'; // Removed useEffect
 import axios from 'axios';
 import './App.css';
 import './components/styles.css';
