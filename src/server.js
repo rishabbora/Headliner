@@ -1,22 +1,22 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { spawn } = require('child_process');
 const fs = require('fs');
-const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 5000; 
+const port = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 const queries = {
-  'Finance': 'Finance News',
+  'Finance News': 'Finance News',
   'US News': 'US News Today',
   'International News': 'International News',
   'Foreign Policy': 'Foreign Policy News',
   'Stock Market': 'Stock Market News',
-  'Sports': 'Sports News',
+  'Sports': 'Sports News'
 };
 
 const scripts = {
@@ -25,7 +25,7 @@ const scripts = {
   'International News': 'InternationalNews.py',
   'Foreign Policy': 'ForeignPolicy.py',
   'Stock Market': 'StockMarket.py',
-  'Sports': 'Sports.py',
+  'Sports': 'Sports.py'
 };
 
 app.post('/run-python', (req, res) => {
@@ -58,6 +58,7 @@ app.post('/run-python', (req, res) => {
     });
   };
 
+  // Ensure that the input is passed as an argument to the script
   runScript(path.join(__dirname, 'python.py'), input || 'Default Query', 'Custom Query');
 
   selectedBoxes.forEach((box) => {
@@ -73,6 +74,13 @@ app.post('/run-python', (req, res) => {
       }
     }
   });
+});
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 app.listen(port, () => {
