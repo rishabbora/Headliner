@@ -34,7 +34,20 @@ const App: React.FC = () => {
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });
       console.log('Response from backend:', response.data); // Log the response data
-      const results = response.data.result.map((output: { box: string; result: string }) => output.result.trim());
+
+      if (!response.data || !response.data.result) {
+        console.error('Invalid response format:', response.data);
+        return;
+      }
+
+      const results = response.data.result.map((output: { box: string; result: string }) => {
+        if (!output.result) {
+          console.error('Missing result for box:', output.box);
+          return '';
+        }
+        return output.result.trim();
+      });
+      
       const newSentences = results.join(' ').trim().split('. ').map((sentence: string) => sentence + '.');
       setSentences(newSentences); // Split sentences by period
       setTypedText(''); // Clear the textarea
