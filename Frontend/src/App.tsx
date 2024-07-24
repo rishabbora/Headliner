@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'; 
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import './App.css';
 import './components/styles.css';
@@ -33,6 +33,7 @@ const App: React.FC = () => {
         input,
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });
+      console.log('Response from backend:', response.data); // Log the response data
       const results = response.data.result.map((output: { box: string; result: string }) => output.result.trim());
       const newSentences = results.join(' ').trim().split('. ').map((sentence: string) => sentence + '.');
       setSentences(newSentences); // Split sentences by period
@@ -116,6 +117,10 @@ const App: React.FC = () => {
       </span>
     );
   };
+
+  useEffect(() => {
+    console.log('Sentences updated:', sentences); // Log the updated sentences
+  }, [sentences]);
 
   return (
     <div className='App'>
