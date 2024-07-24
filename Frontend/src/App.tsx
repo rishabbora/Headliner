@@ -29,7 +29,7 @@ const App: React.FC = () => {
 
   const fetchPythonData = async (selected: string[], input: string) => {
     try {
-      const response = await axios.post('https://your-backend-service.onrender.com/run-python', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/run-python`, {
         input,
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });

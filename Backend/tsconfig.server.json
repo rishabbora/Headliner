@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": false
+  },
+  "include": ["src/**/*.ts", "src/server.js", "src/python.py", "src/Finance.py", "src/USNews.py", "src/InternationalNews.py", "src/ForeignPolicy.py", "src/StockMarket.py", "src/Sports.py"],
+  "exclude": ["node_modules", "build"]
+}
