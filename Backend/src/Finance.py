@@ -36,8 +36,4 @@ def getHeadlines(query):
 
 data_to_pass_back = getHeadlines("Finance News")
 print(data_to_pass_back)
-
-input = sys.argv[1]
-output = data_to_pass_back
-print(output)
 sys.stdout.flush()
