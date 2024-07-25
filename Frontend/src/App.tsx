@@ -27,35 +27,22 @@ const App: React.FC = () => {
     'Sports',
   ];
 
-  const fetchPythonData = async (selected: string[], input: string) => {
+  const fetchPythonData = async (selected, input) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/run-python`, {
+      const response = await axios.post('https://headliner-backend.onrender.com/run-python', {
         input,
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });
-      console.log('Response from backend:', response.data); // Log the response data
-
-      if (!response.data || !response.data.result) {
-        console.error('Invalid response format:', response.data);
-        return;
-      }
-
-      const results = response.data.result.map((output: { box: string; result: string }) => {
-        if (!output.result) {
-          console.error('Missing result for box:', output.box);
-          return '';
-        }
-        return output.result.trim();
-      });
-      
-      const newSentences = results.join(' ').trim().split('. ').map((sentence: string) => sentence + '.');
-      setSentences(newSentences); // Split sentences by period
-      setTypedText(''); // Clear the textarea
-      setIsGameRunning(true); // Start the game
-      setTimer(30); // Reset the timer to 30 seconds
-      setHasStartedTyping(false); // Reset the typing state
+      console.log('Response from backend: ', response.data);
+      const results = response.data.result.map((output) => output.result.trim());
+      const newSentences = results.join(' ').trim().split('. ').map((sentence) => sentence + '.');
+      setSentences(newSentences);
+      setTypedText('');
+      setIsGameRunning(true);
+      setTimer(30);
+      setHasStartedTyping(false);
       if (inputRef.current) {
-        inputRef.current.focus(); // Focus the input element when the game starts
+        inputRef.current.focus();
       }
     } catch (error) {
       console.error('Error fetching data from Python script:', error);
