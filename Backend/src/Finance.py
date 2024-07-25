@@ -34,6 +34,6 @@ def getHeadlines(query):
                 sentences+= ". "
     return ' '.join(sentences.split())
 
-data_to_pass_back = getHeadlines("Finance News")
+data_to_pass_back = "These are the latest finance articles"
 print(data_to_pass_back)
 sys.stdout.flush()
