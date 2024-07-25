@@ -142,7 +142,7 @@ const App: React.FC = () => {
             Stop Game
           </button>
         </div>
-        <p className="note">Text may take a few seconds to appear</p>
+        <p className="note">Text may take a few seconds to appear. Check below for your typing speed aftet timer runs out.</p>
         <div className="timer">Time left: {timer} seconds</div>
         <div className="typing-area-container">
           <div className="words-to-type">
