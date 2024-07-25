@@ -41,7 +41,7 @@ app.post('/run-python', (req, res) => {
 
     python_process.stdout.on('data', (data) => {
       console.log(`Received data from ${box} script: ${data.toString()}`);
-      results.push({ box, result: data.toString() });
+      results.push({ box, result: data.toString().trim() });
       completed += 1;
       if (completed === selectedBoxes.length + 1) {
         res.status(200).json({ result: results });
