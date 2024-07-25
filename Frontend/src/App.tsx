@@ -27,15 +27,16 @@ const App: React.FC = () => {
     'Sports',
   ];
 
-  const fetchPythonData = async (selected, input) => {
+  const fetchPythonData = async (selected: string[], input: string) => {
     try {
+      console.log('Sending request to backend...');
       const response = await axios.post('https://headliner-backend.onrender.com/run-python', {
         input,
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });
       console.log('Response from backend: ', response.data);
-      const results = response.data.result.map((output) => output.result.trim());
-      const newSentences = results.join(' ').trim().split('. ').map((sentence) => sentence + '.');
+      const results = response.data.result.map((output: { box: string; result: string }) => output.result?.trim() || 'Missing result');
+      const newSentences = results.join(' ').trim().split('. ').map((sentence: string) => sentence + '.');
       setSentences(newSentences);
       setTypedText('');
       setIsGameRunning(true);
@@ -76,12 +77,12 @@ const App: React.FC = () => {
   };
 
   const startGame = () => {
-    fetchPythonData(selectedBoxes, inputValue); // Fetch data and start the game
+    fetchPythonData(selectedBoxes, inputValue);
   };
 
   const stopGame = () => {
     setIsGameRunning(false);
-    setTimer(30); // Reset the timer to 30 seconds
+    setTimer(30);
     setWordCount(0);
     setTypedText('');
     if (intervalRef.current) {
@@ -117,10 +118,6 @@ const App: React.FC = () => {
       </span>
     );
   };
-
-  useEffect(() => {
-    console.log('Sentences updated:', sentences); // Log the updated sentences
-  }, [sentences]);
 
   return (
     <div className='App'>
