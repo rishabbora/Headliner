@@ -11,6 +11,6 @@
     "isolatedModules": false,
     "noEmit": false
   },
-  "include": ["src/**/*.ts", "src/server.js", "src/python.py", "src/Finance.py", "src/USNews.py", "src/InternationalNews.py", "src/ForeignPolicy.py", "src/StockMarket.py", "src/Sports.py"],
+  "include": ["src/**/*.ts", "src/server.js", "src/python.py", "src/Finance.py", "src/USNews.py", "src/InternationalNews.py", "src/ForeignPolicy.py", "src/StockMarket.py", "src/Sports.py", "src/Random.py"],
   "exclude": ["node_modules", "build"]
 }
