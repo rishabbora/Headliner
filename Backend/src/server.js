@@ -43,7 +43,7 @@ app.post('/run-python', (req, res) => {
 
     python_process.stdout.on('data', (data) => {
       console.log(`Received data from ${box} script: ${data.toString()}`);
-      const parsedData = JSON.parse(data.toString().replace(/'/g, '"')); // Parse the received JSON data
+      const parsedData = JSON.parse(data.toString().replace(/'/g, '"')); 
       if (isCustom) {
         customQueryResult = parsedData;
       } else {
@@ -76,7 +76,6 @@ app.post('/run-python', (req, res) => {
   }
 
   if (selectedBoxes.length === 0 && !input.trim()) {
-    // Run the Random script if no boxes are selected and no custom query is given
     runScript(path.join(__dirname, scripts['Random']), '', 'Random');
   } else {
     selectedBoxes.forEach((box) => {
