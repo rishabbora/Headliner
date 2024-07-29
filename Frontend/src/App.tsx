@@ -172,7 +172,7 @@ const App: React.FC = () => {
             End Game
           </button>
         </div>
-        <p className="note">Text may take a few seconds to appear</p>
+        <p className="note">Text may take a few seconds to appear. Once text appears click on the text and begin typing!</p>
         <div className="timer">Time left: {timer} seconds</div>
         <div className="typing-area-container">
           <div className="words-to-type">
