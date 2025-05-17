@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const queries = {
-  'Finance News': 'Finance News',
+  'Finance': 'Finance News',
   'US News': 'US News Today',
   'International News': 'International News',
   'Foreign Policy': 'Foreign Policy News',
@@ -43,7 +43,7 @@ app.post('/run-python', (req, res) => {
 
     python_process.stdout.on('data', (data) => {
       console.log(`Received data from ${box} script: ${data.toString()}`);
-      const parsedData = JSON.parse(data.toString().replace(/'/g, '"')); 
+      const parsedData = JSON.parse(data.toString()); 
       if (isCustom) {
         customQueryResult = parsedData;
       } else {
