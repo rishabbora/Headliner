@@ -39,7 +39,7 @@ const App: React.FC = () => {
     try {
       console.log('Sending request to backend...');
       setIsLoading(true); 
-      const response = await axios.post('https://headliner-backend.fly.dev/', {
+      const response = await axios.post('https://headliner-backend.fly.dev/run-python', {
         input,
         selectedBoxes: selected.length === 0 && input.trim() === '' ? ['Random'] : selected
       });

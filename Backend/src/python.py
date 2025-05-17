@@ -1,11 +1,12 @@
-#!/usr/bin/env python3
-import json
+
 import feedparser
 import urllib.parse
 import sys
 import re
+import random
+import json
 
-def clean_headline(text: str) -> str:
+def clean_headline(text):
     if re.search(r'\d', text):
         return ''
     text = text.lower()
@@ -15,30 +16,33 @@ def clean_headline(text: str) -> str:
         text += '.'
     return text
 
-def getHeadlines(query: str, n: int = 10):
+def getHeadlines(query, n=10):
     if not query.strip():
         return ["", [], []]
-
-    # build RSS URL
-    q        = urllib.parse.quote_plus(query)
-    feed_url = f"https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
-    feed     = feedparser.parse(feed_url)
-
+    q= urllib.parse.quote_plus(query)
+    feed_url= f"https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
+    feed= feedparser.parse(feed_url)
     cleaned_headlines = []
     links = []
-
+    headlines = []
     for entry in feed.entries:
-        # drop the " - Source" suffix
         title = entry.title.split(' - ')[0]
-        cleaned = clean_headline(title)
+        headlines.append(title)
+    
+    random.shuffle(headlines)
+    finalHeadlines = []
+
+    for headline in headlines:
+        cleaned = clean_headline(headline)
         if cleaned:
+            finalHeadlines.append(headline)
             cleaned_headlines.append(cleaned)
             links.append(entry.link)
         if len(cleaned_headlines) >= n:
             break
 
     combined = " ".join(cleaned_headlines)
-    return [combined, cleaned_headlines, links]
+    return [combined, finalHeadlines, links]
 
 query = sys.argv[1] if len(sys.argv) > 1 else ""
 output = getHeadlines(query)

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-import json
 import feedparser
 import urllib.parse
 import sys
 import re
 import random
+import json
+
 
 def clean_headline(text):
     if re.search(r'\d', text):
@@ -21,27 +22,28 @@ def getHeadlines(n=10):
     q= urllib.parse.quote_plus(full_query)
     feed_url= f"https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
     feed= feedparser.parse(feed_url)
-
-
     cleaned_headlines = []
     links = []
     headlines = []
-
     for entry in feed.entries:
-        
         title = entry.title.split(' - ')[0]
         headlines.append(title)
-        cleaned = clean_headline(title)
+    
+    random.shuffle(headlines)
+    finalHeadlines = []
+
+    for headline in headlines:
+        cleaned = clean_headline(headline)
         if cleaned:
+            finalHeadlines.append(headline)
             cleaned_headlines.append(cleaned)
             links.append(entry.link)
         if len(cleaned_headlines) >= n:
             break
-    
-    random.shuffle(cleaned_headlines)
 
     combined = " ".join(cleaned_headlines)
-    return [combined, headlines, links]
+    return [combined, finalHeadlines, links]
 
 output = getHeadlines()
+print(json.dumps(output, ensure_ascii=False))
 sys.stdout.flush()
