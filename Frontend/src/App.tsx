@@ -150,7 +150,7 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <span className="heading">Headline Typewriter</span>
+      <span className="heading">Headliner Typewriter</span>
       <h3>Welcome to Headliner! This is a typing speed game that makes you type the most recent news articles. 
         By playing this game you not only increase your typing speed but also learn more about the news! Select a category below or
         type in a custom query. Click Start Game to begin!</h3>
