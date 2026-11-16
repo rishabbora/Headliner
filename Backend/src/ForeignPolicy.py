@@ -6,7 +6,7 @@ import re
 import random
 import json
 
-
+#dalal is learning python
 def clean_headline(text):
     if re.search(r'\d', text):
         return ''
